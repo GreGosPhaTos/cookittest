@@ -1,0 +1,28 @@
+{
+  "name": "cookit",
+  "version": "1.0.0",
+  "description": "Cook it test",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test",
+    "build": "tsc",
+    "dev": "tsc-watch --onSuccess 'node ./dist/app.js'",
+    "lint": "eslint ./ --ext .ts"
+  },
+  "author": "Adrien",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1",
+    "http-errors": "^1.7.2",
+    "typescript": "^4.3.5"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/http-errors": "^1.8.1",
+    "@typescript-eslint/eslint-plugin": "^4.29.1",
+    "@typescript-eslint/parser": "^4.29.1",
+    "eslint": "^7.32.0",
+    "tsc-watch": "^4.4.0"
+  }
+}
