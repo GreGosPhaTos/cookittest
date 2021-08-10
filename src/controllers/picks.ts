@@ -8,6 +8,7 @@ export interface PickController {
 }
 
 export const picksController = (): PickController => {
+  // LOCAL
   let picksRepositoryInstance: PicksRepository;
   const getPicksRepositoryInstance = (): PicksRepository => {
     if (!picksRepositoryInstance) {
@@ -21,9 +22,8 @@ export const picksController = (): PickController => {
     return picksRepositoryInstance;
   };
 
+  // PUBLIC
   const get = async (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.query);
-
     const items = req.query && req.query.items && typeof req.query.items === 'string'
       ? req.query.items.split(',')
       : [];

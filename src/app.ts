@@ -1,5 +1,6 @@
 import express, { Express, NextFunction, Request, Response } from 'express';
 import { picksController } from './controllers/picks';
+import { isHttpError } from 'http-errors';
 
 // Constants
 const PORT = 8080;
@@ -10,6 +11,10 @@ const app: Express = express();
 
 // Routes
 app.get('/picks', picksController().get);
+app.get('/', function (_req: Request, res: Response) {
+  res.send('Hello !');
+});
+// Mocks
 app.get('/items', function (_req: Request, res: Response) {
   res.send([
     {
@@ -115,7 +120,12 @@ app.get('/proteins', function (_req: Request, res: Response) {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use(function(err: Error, _req: Request, res: Response, _next: NextFunction) {
   console.error(err.stack);
-  res.status(500).send({
+  let status = 500;
+  if (isHttpError(err)) {
+    status = err.statusCode;
+  }
+
+  res.status(status).send({
     error: {
       message: err.message || 'Server fault'
     }

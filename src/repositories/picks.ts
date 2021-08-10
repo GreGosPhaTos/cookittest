@@ -3,7 +3,7 @@ import { Pick } from '../models/pick';
 import { Item } from '../models/item';
 
 // LOCAL
-interface PicksRepositoryFactoryOptions {
+interface PicksRepositoryOptions {
   itemsRepository: ItemsRepository;
 }
 
@@ -12,8 +12,8 @@ export interface PicksRepository {
   getPicks: (items: string[]) => Promise<Pick>;
 }
 
-export const picksRepository: (options: PicksRepositoryFactoryOptions) => PicksRepository =
-(options: PicksRepositoryFactoryOptions) => {
+export const picksRepository: (options: PicksRepositoryOptions) => PicksRepository =
+(options: PicksRepositoryOptions) => {
   const { itemsRepository } = options;
   const getPicks: (items: string[]) => Promise<Pick> = async (items: string[]) => {
     const fetchedItems: Item[] = await itemsRepository.getAllItemsAndProteins();
@@ -25,7 +25,6 @@ export const picksRepository: (options: PicksRepositoryFactoryOptions) => PicksR
       }
 
       const portions = item.displayName && item.displayName[0] ? item.displayName[0] : 1;
-      console.log('portions', portions);
       if (item.station && item.volume >= portions) {
         picks.add(item.station);
       }
